@@ -1,6 +1,7 @@
 if(process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -12,14 +13,16 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
+const MongoStore = require('connect-mongo');
 const User = require('./models/user');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/YelpCamp';
 
-mongoose.connect('mongodb://localhost:27017/YelpCamp', {
+mongoose.connect( dbUrl, { //
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -40,9 +43,22 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
+const secret = process.env.SECRET || 'Thisshouldbeabettersecret'
+
+const store = new MongoStore({
+    mongoUrl: dbUrl,
+    secret,
+    touchAfter: 24 * 3600
+})
+
+store.on("error", function(e){
+    console.log("Session Store Error", e);
+})
+
 const sessionConfig = {
+    store,
     name: 'session',
-    secret: 'Thisshouldbeabettersecret',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
