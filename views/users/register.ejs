@@ -1,26 +1,35 @@
 <% layout('layouts/boilerplate') %> 
-<h1>Register</h1>
-<form action="/register" method="POST" class="validated-form" novalidate>
-    <div class="mb-3">
-        <label class="form-label" for="username">Username</label>
-        <input class="form-control" type="text" id="username" name="username" required></input>
-        <dir class="valid-feedback">
-            Looks Good!
-        </dir>
+<div class="row container d-flex justify-content-center align-items-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow mb-5">
+            <img src="https://images.unsplash.com/photo-1458571037713-913d8b481dc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1752&q=80" alt="" class="card-img-top">
+            <div class="card-body">
+                <h5 class="width: 600px">Register</h5>
+                <form action="/register" method="POST" class="validated-form" novalidate>
+                    <div class="mb-3">
+                        <label class="form-label" for="username">Username</label>
+                        <input class="form-control" type="text" id="username" name="username" required autofocus></input>
+                        <dir class="valid-feedback">
+                            Looks Good!
+                        </dir>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="email">Email</label>
+                        <input class="form-control" type="email" id="email" name="email" required></input>
+                        <dir class="valid-feedback">
+                            Looks Good!
+                        </dir>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="password">Password</label>
+                        <input class="form-control" type="password" id="password" name="password" required></input>
+                        <dir class="valid-feedback">
+                            Looks Good!
+                        </dir>
+                    </div>
+                    <button class="btn btn-success w-100">Register</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label class="form-label" for="email">Email</label>
-        <input class="form-control" type="email" id="email" name="email" required></input>
-        <dir class="valid-feedback">
-            Looks Good!
-        </dir>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="password">Password</label>
-        <input class="form-control" type="password" id="password" name="password" required></input>
-        <dir class="valid-feedback">
-            Looks Good!
-        </dir>
-    </div>
-    <button class="btn btn-success">Register</button>
-</form>
+</div>
